@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= company.name %> | Technology Consulting for Growing Businesses</title>
+    <meta
+      name="description"
+      content="Aperture Indigo helps small businesses reduce operational entropy with software solutions, IT management, and practical technology consulting."
+    />
+    <link href="https://fonts.cdnfonts.com/css/ailerons" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="/">
+          <span class="brand-mark"></span>
+          <span><%= company.name %></span>
+        </a>
+        <nav class="nav">
+          <a href="#featured">Work</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="#signals">Signals</a>
+          <a href="#contact" class="nav-cta">Contact</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero hero-video">
+          <div class="hero-media">
+            <iframe
+              id="hero-video"
+              data-trim-end="12"
+              src="<%= videos[0].embed %>"
+              title="<%= videos[0].title %> background"
+              loading="eager"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="hero-overlay"></div>
+          <div class="hero-content">
+            <div class="hero-copy">
+              <p class="ticker">Observe | Diagnose | Design | Deploy | Stabilize | Accelerate</p>
+              <p class="eyebrow">Technology consulting for lower-entropy operations</p>
+              <h1>Systems strategy for teams ready to escape operational gravity.</h1>
+              <p class="lead hero-lead">
+                <%= company.name %> helps small businesses align software, workflows, and IT into a
+                productive orbit where entropy drops, handoffs tighten, and technology amplifies momentum.
+              </p>
+              <div class="hero-actions">
+                <a href="#contact" class="button button-primary">Start a Project</a>
+                <a href="#featured" class="button button-secondary">Explore Services</a>
+              </div>
+            </div>
+            <div class="particle-logo" data-text="AI" aria-label="Interactive AI particle logo">
+              <canvas class="particle-logo-canvas"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <section class="marquee">
+          <p>Operational entropy reduction</p>
+          <p>Workflow acceleration</p>
+          <p>Software gravity wells</p>
+          <p>IT mission control</p>
+          <p>Productivity systems design</p>
+        </section>
+
+        <section id="featured" class="section">
+          <div class="section-heading">
+            <p class="eyebrow">Applied systems, orbital workflows, and launch support</p>
+            <h2>Focused support for businesses whose workflows have started to drift off course.</h2>
+          </div>
+          <div class="service-grid">
+            <% featured.forEach((item) => { %>
+              <article class="service-card" style="--service-image: url('<%= item.image %>')">
+                <span class="feature-index"><%= item.index %></span>
+                <h3><%= item.title %></h3>
+                <p><%= item.summary %></p>
+              </article>
+            <% }) %>
+          </div>
+        </section>
+
+        <section id="capabilities" class="section capabilities-section">
+          <div class="section-heading">
+            <p class="eyebrow">Mission Profiles</p>
+            <h2>Map the field. Build the engine. Operate with clearer telemetry.</h2>
+          </div>
+          <div class="capability-columns">
+            <div class="capability-card">
+              <div class="capability-title">
+                <span>01</span>
+                <h3>Design</h3>
+              </div>
+              <ul>
+                <% capabilities.design.forEach((item) => { %>
+                  <li><%= item %></li>
+                <% }) %>
+              </ul>
+            </div>
+            <div class="capability-card">
+              <div class="capability-title">
+                <span>02</span>
+                <h3>Build</h3>
+              </div>
+              <ul>
+                <% capabilities.build.forEach((item) => { %>
+                  <li><%= item %></li>
+                <% }) %>
+              </ul>
+            </div>
+            <div class="capability-card">
+              <div class="capability-title">
+                <span>03</span>
+                <h3>Operate</h3>
+              </div>
+              <ul>
+                <% capabilities.operate.forEach((item) => { %>
+                  <li><%= item %></li>
+                <% }) %>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="signals" class="section signals-section">
+          <div class="section-heading">
+            <p class="eyebrow">Signal Library</p>
+            <h2>Motion references for entropy, oscillation, and systems finding order.</h2>
+          </div>
+          <div class="video-grid">
+            <% videos.forEach((video) => { %>
+              <article class="video-card">
+                <div class="signal-heading">
+                  <h3><%= video.title %></h3>
+                </div>
+                <div class="video-frame">
+                  <% if (video.embed) { %>
+                    <iframe
+                      src="<%= video.embed %>"
+                      title="<%= video.title %>"
+                      loading="lazy"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                  <% } else if (video.video) { %>
+                    <video autoplay muted loop playsinline preload="metadata">
+                      <source src="<%= video.video %>" type="video/webm" />
+                    </video>
+                  <% } else { %>
+                    <img src="<%= video.image %>" alt="<%= video.title %>" loading="lazy" />
+                  <% } %>
+                </div>
+              </article>
+            <% }) %>
+          </div>
+        </section>
+
+        <section id="contact" class="section contact-section">
+          <div class="contact-copy">
+            <p class="eyebrow">Open a Channel</p>
+            <h2>Need a consulting partner who can turn operational drag into productive velocity?</h2>
+          </div>
+          <form class="contact-card contact-form" action="mailto:<%= company.email %>" method="post" enctype="text/plain">
+            <div class="form-grid">
+              <label>
+                <span>Name</span>
+                <input type="text" name="name" autocomplete="name" required />
+              </label>
+              <label>
+                <span>Email</span>
+                <input type="email" name="email" autocomplete="email" required />
+              </label>
+            </div>
+            <label>
+              <span>Mission Type</span>
+              <select name="mission">
+                <option>Web design, development, and hosting</option>
+                <option>Software automation</option>
+                <option>IT mission control</option>
+                <option>Data continuity planning</option>
+              </select>
+            </label>
+            <label>
+              <span>Project Signal</span>
+              <textarea name="message" rows="5" placeholder="Tell us what is drifting, what needs to launch, and what productivity should look like after stabilization." required></textarea>
+            </label>
+            <div class="contact-form-footer">
+              <p>Direct channel: <a href="mailto:<%= company.email %>"><%= company.email %></a></p>
+              <button class="button button-secondary" type="submit">Transmit Brief</button>
+            </div>
+          </form>
+        </section>
+      </main>
+      <footer class="site-footer">
+        <a class="brand footer-brand" href="/">
+          <span class="brand-mark"></span>
+          <span><%= company.name %></span>
+        </a>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="#featured">Work</a>
+          <a href="#capabilities">Capabilities</a>
+          <a href="#signals">Signals</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <p class="footer-signal">Signal channel: <a href="mailto:<%= company.email %>"><%= company.email %></a></p>
+      </footer>
+    </div>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script src="/particle-logo.js" defer></script>
+    <script src="/hero-video-loop.js" defer></script>
+  </body>
+</html>

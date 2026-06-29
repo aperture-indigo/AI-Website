@@ -1,0 +1,23 @@
+{
+  "name": "aperture-indigo-site",
+  "version": "1.0.0",
+  "description": "Technology consulting website for small business consulting, software solutions, and IT management.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [
+    "consulting",
+    "technology",
+    "small-business",
+    "software",
+    "it-management"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}
