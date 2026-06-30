@@ -68,16 +68,14 @@ app.get("/", (req, res) => {
         creator: "Sylvain Gaussens",
         year: "2020",
         blurb: "A progression from order to collapse using entropic motion and stark digital texture.",
-        link: "https://vimeo.com/468647542",
-        embed: "https://player.vimeo.com/video/468647542?background=1&autoplay=1&muted=1&loop=1&title=0&byline=0&portrait=0"
+        video: "/photos/videos/IT%20Entropy.mp4"
       },
       {
         title: "Operational Noise",
         creator: "Daniel Sierra",
         year: "2013",
         blurb: "Houdini-driven abstract motion with clean oscillation, geometric rhythm, and a research-film feel.",
-        link: "https://vimeo.com/65475425",
-        embed: "https://player.vimeo.com/video/65475425?background=1&autoplay=1&muted=1&loop=1&title=0&byline=0&portrait=0"
+        video: "/photos/videos/Operational%20Noise.mp4"
       }
     ]
   });

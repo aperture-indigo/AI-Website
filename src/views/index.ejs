@@ -32,15 +32,17 @@
       <main>
         <section class="hero hero-video">
           <div class="hero-media">
-            <iframe
+            <video
               id="hero-video"
-              data-trim-end="12"
-              src="<%= videos[0].embed %>"
               title="<%= videos[0].title %> background"
-              loading="eager"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowfullscreen
-            ></iframe>
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="auto"
+            >
+              <source src="<%= videos[0].video %>" type="video/mp4" />
+            </video>
           </div>
           <div class="hero-overlay"></div>
           <div class="hero-content">
@@ -74,7 +76,7 @@
         <section id="featured" class="section">
           <div class="section-heading">
             <p class="eyebrow">Applied systems, orbital workflows, and launch support</p>
-            <h2>Focused support for businesses whose workflows have started to drift off course.</h2>
+            <h2>Focused support for businesses whose workflows have drifted off course.</h2>
           </div>
           <div class="service-grid">
             <% featured.forEach((item) => { %>
@@ -151,7 +153,7 @@
                     ></iframe>
                   <% } else if (video.video) { %>
                     <video autoplay muted loop playsinline preload="metadata">
-                      <source src="<%= video.video %>" type="video/webm" />
+                      <source src="<%= video.video %>" type="video/mp4" />
                     </video>
                   <% } else { %>
                     <img src="<%= video.image %>" alt="<%= video.title %>" loading="lazy" />
@@ -209,11 +211,9 @@
           <a href="#signals">Signals</a>
           <a href="#contact">Contact</a>
         </nav>
-        <p class="footer-signal">Signal channel: <a href="mailto:<%= company.email %>"><%= company.email %></a></p>
+      <p class="footer-signal">Signal channel: <a href="mailto:<%= company.email %>"><%= company.email %></a></p>
       </footer>
     </div>
-    <script src="https://player.vimeo.com/api/player.js"></script>
     <script src="/particle-logo.js" defer></script>
-    <script src="/hero-video-loop.js" defer></script>
   </body>
 </html>

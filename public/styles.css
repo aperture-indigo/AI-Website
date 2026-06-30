@@ -349,7 +349,8 @@ a {
   background: #02040a;
 }
 
-.hero-media iframe {
+.hero-media iframe,
+.hero-media video {
   position: absolute;
   top: -18%;
   left: -14%;
@@ -357,6 +358,7 @@ a {
   height: 136%;
   border: 0;
   filter: saturate(0.7) contrast(1.1) brightness(0.68) hue-rotate(-8deg);
+  object-fit: cover;
   pointer-events: none;
 }
 
@@ -619,7 +621,7 @@ h3,
 }
 
 .section-heading {
-  margin-bottom: 26px;
+  margin-bottom: 38px;
   text-align: center;
 }
 
@@ -1182,7 +1184,8 @@ h3,
     padding-right: 16px;
   }
 
-  .hero-media iframe {
+  .hero-media iframe,
+  .hero-media video {
     top: -10%;
     left: -56%;
     width: 214%;
