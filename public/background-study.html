@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08090d">
+<title>Conservatory — Aperture Indigo background study</title>
+<link rel="icon" href="/favicon.png">
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#08090d;overflow:hidden}body{display:grid;place-items:center}main{position:relative;width:min(100vw,234.9633svh);aspect-ratio:1922/818;max-height:100svh}img,canvas{position:absolute;inset:0;width:100%;height:100%;display:block}img{object-fit:contain}canvas{opacity:0;transition:opacity 1s}canvas.ready{opacity:1}button{position:fixed;right:20px;bottom:18px;border:1px solid #a5a7ff50;background:#10121bd9;color:#dddfff;padding:10px 14px;font:12px monospace;cursor:pointer;opacity:.75;transition:opacity .2s}button:hover,button:focus-visible{opacity:1}button:focus-visible{outline:2px solid #a5a7ff;outline-offset:4px}button[hidden]{display:none}@media(prefers-reduced-motion:reduce){canvas,button{transition:none}}
+</style>
+<script src="/studies/indigo-conservatory.js?v=3" defer></script>
+</head>
+<body>
+<main aria-label="Conservatory background study">
+<img id="scene" src="/assets/havfrue-original-enhanced.webp" alt="A dark architectural interior with warm amber-lit plants behind glass, a turquoise skylight, and a gently rippling central reflecting pool.">
+<canvas id="atmosphere" aria-hidden="true"></canvas>
+</main>
+<button id="motion" type="button" aria-pressed="false" hidden>Pause motion</button>
+</body>
+</html>

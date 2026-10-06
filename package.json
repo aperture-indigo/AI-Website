@@ -1,23 +1,16 @@
 {
-  "name": "aperture-indigo-site",
+  "name": "aperture-indigo",
   "version": "1.0.0",
-  "description": "Technology consulting website for small business consulting, software solutions, and IT management.",
-  "main": "src/server.js",
+  "private": true,
+  "type": "module",
+  "description": "Aperture Indigo — The Living Structure",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "check": "node --check server.js && node --check public/app.js && node --check scripts/build-pages.mjs",
+    "build": "node scripts/build-pages.mjs"
   },
-  "keywords": [
-    "consulting",
-    "technology",
-    "small-business",
-    "software",
-    "it-management"
-  ],
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "ejs": "^3.1.10",
-    "express": "^4.21.2"
+  "engines": {
+    "node": ">=20"
   }
 }
