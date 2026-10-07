@@ -48,7 +48,6 @@ document.querySelector('#brief-form')?.addEventListener('submit',event=>{
   const link=document.createElement('a');link.href=url;link.download='aperture-indigo-project-notes.txt';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
   document.querySelector('#brief-status').textContent='Your notes are ready to download. Nothing has been sent.';
 });
-document.querySelector('#year').textContent=new Date().getFullYear();
 
 const connectedCanvas = document.querySelector('.connected-contours');
 if (connectedCanvas) {
@@ -97,4 +96,25 @@ if (treeCanvas) {
   import('/animations/pixel-tree.js').then(({ mountPixelTree }) => {
     mountPixelTree(treeCanvas);
   }).catch(error => console.warn('Pixel tree unavailable:', error));
+}
+
+const butterflyCanvas = document.querySelector('.pixel-butterfly canvas');
+if (butterflyCanvas) {
+  import('/animations/pixel-butterfly.js').then(({ mountPixelButterfly }) => {
+    mountPixelButterfly(butterflyCanvas);
+  }).catch(error => console.warn('Pixel butterfly unavailable:', error));
+}
+
+const tigerLilyCanvas = document.querySelector('.pixel-tiger-lily canvas');
+if (tigerLilyCanvas) {
+  import('/animations/pixel-tiger-lily.js').then(({ mountPixelTigerLily }) => {
+    mountPixelTigerLily(tigerLilyCanvas);
+  }).catch(error => console.warn('Pixel tiger lily unavailable:', error));
+}
+
+const processGrid = document.querySelector('.process-grid');
+if (processGrid) {
+  import('/animations/process-growth.js').then(({ mountProcessGrowth }) => {
+    mountProcessGrowth(processGrid);
+  }).catch(error => console.warn('Process growth unavailable:', error));
 }

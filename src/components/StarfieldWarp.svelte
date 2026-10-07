@@ -15,7 +15,7 @@
     function respawn(star) { star.x = random() * 2 - 1; star.y = random() * 2 - 1; star.z = .8 + random() * .2; }
     function clear() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.fillStyle = '#090a10'; ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = '#0f1014'; ctx.fillRect(0, 0, width, height);
     }
     function initialize() {
       randomState = 51019;
@@ -27,7 +27,7 @@
     function step(dt, steer = true) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       // Frame-rate-independent phosphor decay leaves short, soft speed trails.
-      ctx.fillStyle = `rgba(9,10,16,${1 - Math.exp(-dt * 11)})`;
+      ctx.fillStyle = `rgba(15,16,20,${1 - Math.exp(-dt * 11)})`;
       ctx.fillRect(0, 0, width, height);
       const oldX = vanishingPoint.x, oldY = vanishingPoint.y;
       const targetX = steer && pointer.inside ? pointer.x : width * .5;
@@ -132,6 +132,6 @@
     height: 100%;
     display: block;
     pointer-events: none;
-    background: #090a10;
+    background: #0f1014;
   }
 </style>

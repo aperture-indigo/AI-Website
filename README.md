@@ -98,3 +98,11 @@ Visual inspiration: https://vanlent.dev/ — fine square grid and a dense floati
 ## Tree and roots
 
 `src/components/PixelTree.svelte` supplies the Solid Foundations illustration, extracted to `public/animations/pixel-tree.js` by the build. Deterministic branching and overlapping leaf volumes form an indigo pixel tree with perspective, depth shading, and visible roots. Three staggered teal pulses slowly follow selected root paths into the trunk, on independent 19–27 second cycles. Hover or keyboard focus smoothly enlarges the tree by 7.5%, using the same easing as the other service visuals. The silhouette pauses offscreen and in hidden tabs, and displays without the pulse for reduced motion.
+
+## Studio butterfly
+
+`src/components/PixelButterfly.svelte` supplies the showcase illustration beneath the Studio Philosophy label, to the left of the heading and copy. Its generated Canvas 2D engine uses cached, finely stippled wing textures with branching veins, pale marginal markings, teal eyespots, a segmented body, and clubbed antennae. Wingbeats vary between fluttering bursts and brief glides. Smooth, irregular gusts produce gentle lateral drift, rises, dips, and banking, with spring easing and slightly asymmetric wing angles. Hover or keyboard focus illuminates the eyespots, adds a faint indigo wing glow, and gently enlarges the butterfly by 7.5%. Animation pauses offscreen and in hidden tabs; reduced motion displays an open-wing pose. The illustration scales to the available width without dependencies.
+
+## Studio caterpillar
+
+`src/components/PixelCaterpillar.svelte` provides the pixel caterpillar above the Studio hero logo panel. Its segmented violet body, dark indigo bands, and teal spots interpret the pattern of the black swallowtail photograph in [Naturally North Idaho's caterpillar article](https://www.naturallynorthidaho.com/2019/07/10-fun-facts-about-caterpillars.htm). Hover or keyboard focus gently enlarges it by 7.5% and illuminates the bands and teal spots. The original photograph is not bundled. The generated Canvas 2D illustration slowly nibbles a veined leaf atop a supporting branch, with subtle head and body motion and tiny leaf crumbs. It pauses offscreen and in hidden tabs and displays a still pose with reduced motion.

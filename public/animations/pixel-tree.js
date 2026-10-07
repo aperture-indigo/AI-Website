@@ -80,7 +80,7 @@
     function render(seconds){
       if(!width||!height||disposed)return;
       ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
-      const scale=Math.min(width/300,height/354)*(1+(motion.matches?0:energy*.075));
+      const scale=Math.min(width/300,height/354);
       ctx.translate((width-300*scale)/2,(height-354*scale)/2);ctx.scale(scale,scale);
       // A faint elliptical ground contour reinforces depth without moving the tree.
       for(let i=0;i<100;i++){
@@ -99,10 +99,16 @@
           else if(p.kind==='wood'&&p.segment===-1&&route.head<0&&route.head> -80)
             pulse=Math.max(pulse,Math.exp(-Math.pow((p.distance+route.head)/9,2))*.65);
         }
-        const rgb=p.base.map((v,i)=>Math.round(v+([107,243,226][i]-v)*pulse*.95));
+        const rootEnergy=p.kind==='root'?energy:0;
+        // Keep the collar fixed; expansion blends in along the first part of each root.
+        const collar=Math.min(1,p.distance/16);
+        const rootScale=1+(motion.matches?0:rootEnergy*.10*collar*collar*(3-2*collar));
+        const x=150+(p.x-150)*rootScale,y=218+(p.y-218)*rootScale;
+        const rgb=p.base.map((v,i)=>Math.min(255,Math.round((v+([107,243,226][i]-v)*pulse*.95)*(1+rootEnergy*.10))));
         ctx.fillStyle=`rgba(${rgb},${Math.min(.98,p.alpha+pulse*.42)})`;
-        const size=p.size+pulse*.2;ctx.fillRect(p.x,p.y,size,size);
-        if(pulse>.18){ctx.fillStyle=`rgba(60,190,191,${pulse*.055})`;ctx.fillRect(p.x-2,p.y-2,size+4,size+4);}
+        const size=(p.size+pulse*.2)*rootScale;ctx.fillRect(x,y,size,size);
+        if(rootEnergy>.005){ctx.fillStyle=`rgba(${rgb},${rootEnergy*.018})`;ctx.fillRect(x-1.5,y-1.5,size+3,size+3);}
+        if(pulse>.18){ctx.fillStyle=`rgba(60,190,191,${pulse*.055})`;ctx.fillRect(x-2,y-2,size+4,size+4);}
       }
     }
     function stop(){cancelAnimationFrame(frame);frame=0;last=0;canvas.dataset.motion=motion.matches?'static':'paused';}
@@ -113,7 +119,7 @@
       if(now-lastDraw>1000/30){render(time);lastDraw=now;}
       frame=requestAnimationFrame(tick);
     }
-    function sync(){stop();if(disposed||!width||!height)return;if(motion.matches)render(0);else if(visible&&!document.hidden){canvas.dataset.motion='running';frame=requestAnimationFrame(tick);}}
+    function sync(){stop();if(disposed||!width||!height)return;if(motion.matches){energy=hovering||focused?1:0;render(0);}else if(visible&&!document.hidden){canvas.dataset.motion='running';frame=requestAnimationFrame(tick);}}
     function resize(){
       const r=canvas.getBoundingClientRect(),ratio=Math.min(devicePixelRatio||1,1.5);
       if(width===r.width&&height===r.height&&dpr===ratio)return;
@@ -121,8 +127,8 @@
     }
     const intersection=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();});
     const observer=new ResizeObserver(resize);intersection.observe(canvas);observer.observe(canvas);
-    function enter(){hovering=true;}function leave(){hovering=false;}
-    function focus(){focused=true;}function blur(){focused=false;}
+    function enter(){hovering=true;if(motion.matches)sync();}function leave(){hovering=false;if(motion.matches)sync();}
+    function focus(){focused=true;if(motion.matches)sync();}function blur(){focused=false;if(motion.matches)sync();}
     interactionTarget.addEventListener('pointerenter',enter);interactionTarget.addEventListener('pointerleave',leave);
     interactionTarget.addEventListener('pointercancel',leave);interactionTarget.addEventListener('focus',focus);interactionTarget.addEventListener('blur',blur);
     document.addEventListener('visibilitychange',sync);motion.addEventListener('change',sync);resize();

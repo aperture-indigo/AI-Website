@@ -56,7 +56,7 @@
     function render() {
       if (disposed || !width || !height) return;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.fillStyle = '#090a10'; ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = '#0f1014'; ctx.fillRect(0, 0, width, height);
       const dim = new Path2D(), bright = new Path2D();
       // Every candidate dot sits on the same 4 CSS-pixel grid.
       for (let y = 2; y < height; y += spacing) {
@@ -175,6 +175,6 @@
     height: 100%;
     display: block;
     pointer-events: none;
-    background: #090a10;
+    background: #0f1014;
   }
 </style>

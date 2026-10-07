@@ -34,7 +34,7 @@
     function render(time) {
       if (disposed || !width || !height) return;
       ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-      ctx.fillStyle = '#090a10';
+      ctx.fillStyle = '#0f1014';
       ctx.fillRect(0, 0, width, height);
       for (let y = 0; y <= rows; y++) {
         for (let x = 0; x <= columns; x++) {

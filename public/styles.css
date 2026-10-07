@@ -102,18 +102,18 @@ h2:not(#journey-title),
   .identity-stamp .brand-wordmark { font-size: 22px; }
 }
 
-/* The connected-systems card contains its own interactive contour field. */
-.door-connected,.door-intelligence,.door-experience { isolation: isolate; overflow: hidden; background: #090a10; }
+/* Match the statement section’s visible surface: rgba(16,18,22,.7) over --bg. */
+.door-connected,.door-intelligence,.door-experience { isolation: isolate; overflow: hidden; background: #0f1014; }
 .door-connected .connected-contours,.door-intelligence .intelligence-voronoi,.door-experience .experience-starfield {
   position: absolute; inset: 0; width: 100%; height: 100%;
   display: block; pointer-events: none; z-index: -2;
 }
 .door-connected::before,.door-intelligence::before,.door-experience::before {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1;
-  background: linear-gradient(90deg, rgba(9,10,16,.73), rgba(9,10,16,.35)),
-    linear-gradient(0deg, rgba(9,10,16,.4), transparent 30%);
+  background: linear-gradient(90deg, rgba(15,16,20,.73), rgba(15,16,20,.35)),
+    linear-gradient(0deg, rgba(15,16,20,.4), transparent 30%);
 }
-.door-connected:hover,.door-intelligence:hover,.door-experience:hover { background: #090a10; }
+.door-connected:hover,.door-intelligence:hover,.door-experience:hover { background: #0f1014; }
 .door-connected .door-top,.door-connected .door-foot,.door-intelligence .door-top,.door-intelligence .door-foot,.door-experience .door-top,.door-experience .door-foot { color: #bbb8d1; }
 .door-connected p,.door-intelligence p,.door-experience p { color: #c2c2ce; }
 .door-connected .door-foot,.door-intelligence .door-foot,.door-experience .door-foot { border-color: #77739955; }
@@ -145,6 +145,14 @@ body {
 }
 
 .pixel-website,.pixel-tree { cursor: default; }
+
+.philosophy-rail { min-width:0; }
+.pixel-tiger-lily { cursor:crosshair;width:100%;aspect-ratio:400/210;margin:0 0 12px; }
+.pixel-tiger-lily canvas { display:block;width:100%;height:100%;pointer-events:none; }
+.pixel-butterfly { width:100%;aspect-ratio:415/350;margin:30px auto 0;cursor:crosshair; }
+.pixel-butterfly canvas { display:block;width:100%;height:100%;pointer-events:none; }
+.pixel-butterfly:focus-visible { outline:1px solid var(--indigo);outline-offset:4px; }
+@media(max-width:650px) { .pixel-butterfly { max-width:420px;margin:20px auto; } }
 
 /* A reversible journey from tangled handoffs to a deliberate workflow. */
 .system-stage { overflow:hidden; background:var(--surface); color:var(--text); border-color:#3b3e4b; }
@@ -190,3 +198,20 @@ body {
 @media(prefers-reduced-motion:reduce) {
   #system-diagram .flow-card,#system-diagram .flow-port,.flow-summary { transition:none; }
 }
+
+.pixel-tiger-lily:focus-visible { outline:1px solid var(--indigo);outline-offset:4px; }
+
+/* Keep the Studio title aligned with the other interior page titles. */
+.studio-hero>.eyebrow { margin-bottom:0; }
+.studio-aside { align-self:start; }
+.pixel-tiger-lily { margin:-30px 0 8px; }
+@media(max-width:650px) { .pixel-tiger-lily { margin:0 0 8px; } }
+
+/* Growth wraps the four process frames and their dividers. */
+.process-section { position:relative; }
+.process-growth { position:absolute;top:0;left:0;width:100%;pointer-events:none;z-index:2; }
+
+.studio-perspective { display:block;margin-bottom:0; }
+.studio-perspective>p { font-size:18px;line-height:1.8;margin:0 0 22px; }
+.studio-perspective>.mono { display:block;font-size:12px;line-height:1.8;color:var(--dim); }
+@media(max-width:650px) { .studio-perspective>p { font-size:16px; } }

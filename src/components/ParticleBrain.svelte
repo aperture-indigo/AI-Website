@@ -13,42 +13,62 @@
     function point(x,y,z,fold=1) {
       particles.push({x,y,z,fold,size:.65+random()*.45,brightness:.8+random()*.2});
     }
-    // Broad frontal lobes, a long rounded cortex, and a narrow medial fissure.
-    // Continuous winding grooves give the surface legible gyri at small sizes.
+    // Model the upper cerebrum and lower temporal lobes separately, with a
+    // broad frontal end, a tapered posterior end, and a deep medial cleft.
+    function cortexFold(x,y,z) {
+      const phase=y*13+Math.sin(z*7+x*3)*2.1+Math.sin(z*12-x*5)*.45;
+      const groove=Math.exp(-Math.pow(Math.sin(phase)*2.8,2));
+      const crossing=Math.exp(-Math.pow(Math.sin(z*13+Math.sin(y*8+x*4)*1.4)*4.4,2));
+      return {relief:1-.13*groove-.035*crossing,light:Math.max(.025,1-.95*groove-.24*crossing)};
+    }
     for (const side of [-1,1]) {
-      for(let i=0;i<4600;i++) {
-        const sy=1-2*(i+.5)/4600, angle=i*2.399963229728653;
-        const ring=Math.sqrt(1-sy*sy), sx=Math.abs(Math.cos(angle)*ring), sz=Math.sin(angle)*ring;
-        const phase=sy*18+Math.sin(sz*6+sx*3)*1.65+Math.sin(sz*11-sx*4)*.35;
-        const groove=Math.exp(-Math.pow(Math.sin(phase)*3.6,2));
-        const crossGroove=Math.exp(-Math.pow(Math.sin(sz*15+Math.sin(sy*7)*1.4+sx*3)*5,2));
-        const lateral=Math.exp(-Math.pow((sy-.22-sz*.13)*18,2))*Math.min(1,sx*3);
-        const relief=1-.075*groove-.025*crossGroove-.075*lateral;
-        const frontal=1+.075*Math.exp(-Math.pow((sz+.45)*2,2));
-        const temporal=1+.09*Math.exp(-Math.pow((sy-.38)*4,2));
-        const x=side*(.025+sx*.66*frontal*temporal)*relief;
-        const y=(sy*.64-.14+Math.max(0,sz)*.035)*relief;
-        const z=sz*.92*relief;
-        point(x,y,z,Math.max(.12,1-.78*groove-.2*crossGroove-.65*lateral));
+      for(let i=0;i<6200;i++) {
+        const sy=1-2*(i+.5)/6200,angle=i*2.399963229728653;
+        const ring=Math.sqrt(1-sy*sy),sx=Math.abs(Math.cos(angle)*ring),sz=Math.sin(angle)*ring;
+        const fold=cortexFold(sx,sy,sz);
+        const frontal=1+.14*Math.exp(-Math.pow((sz+.5)*2.7,2));
+        const posterior=1-.15*Math.max(0,sz);
+        const cleft=Math.exp(-sx*11);
+        const upper=sy<0;
+        let y=upper?-.16-.63*Math.pow(-sy,.78):-.16+sy*.47;
+        // Raise the underside at the front and back; the temporal lobe fills
+        // the middle, producing the characteristic lobed side silhouette.
+        if(!upper)y-=.14*Math.pow(Math.abs(sz),1.3);
+        else y+=cleft*.12*Math.pow(-sy,.7);
+        const lateral=Math.exp(-Math.pow((sy-.31-sz*.19)*12,2))*Math.min(1,sx*4);
+        const central=Math.exp(-Math.pow((sz+.04+sy*.22)*15,2))*Math.max(0,-sy)*sx;
+        const relief=fold.relief-.08*lateral-.055*central;
+        const x=side*(.038+sx*.65*frontal*posterior)*relief;
+        y=(y+.16)*relief-.16;
+        const z=sz*.90*relief;
+        point(x,y,z,Math.max(.015,fold.light*(1-.93*lateral)*(1-.75*central)));
+      }
+      // Distinct inferior temporal lobes tuck below the lateral sulcus.
+      for(let i=0;i<1600;i++) {
+        const sy=1-2*(i+.5)/1600,a=i*2.399963229728653,r=Math.sqrt(1-sy*sy);
+        const sx=Math.cos(a)*r,sz=Math.sin(a)*r;
+        const fold=cortexFold(Math.abs(sx),sy*.7+.5,sz);
+        point(side*(.40+sx*.25*fold.relief),-.01+sy*.20*fold.relief,
+          -.18+sz*.56*fold.relief,fold.light*.85);
       }
     }
     // Compact posterior cerebellum with finer, horizontal folia.
     for(let i=0;i<1050;i++) {
       const y=1-2*(i+.5)/1050,a=i*2.3999632297,r=Math.sqrt(1-y*y);
       const fold=.5+.5*Math.sin(y*43),relief=.96+.04*fold;
-      point(Math.cos(a)*r*.36*relief,.48+y*.22,.46+Math.sin(a)*r*.32,.3+fold*.6);
+      point(Math.cos(a)*r*.36*relief,.27+y*.16,.39+Math.sin(a)*r*.28,.3+fold*.6);
     }
     // A short, tapered brainstem, nestled beneath the cortex.
     for(let i=0;i<380;i++) {
       const t=random(),a=random()*Math.PI*2,r=.105*(1-t*.52);
-      point(Math.cos(a)*r,.46+t*.4,.18+Math.sin(a)*r+t*.14,.65);
+      point(Math.cos(a)*r,.28+t*.40,.18+Math.sin(a)*r+t*.14,.65);
     }
     function render(time) {
       if(!width||!height||disposed)return;
       ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
       const pulse=.5+.5*Math.sin(time*3.5);
       const scale=Math.min(width*.46,height*.38)*(1+energy*.075);
-      const ay=time*.24+.70,ax=-.20;
+      const ay=time*.24+.70,ax=-.32;
       const cy=Math.cos(ay),sy=Math.sin(ay),cx=Math.cos(ax),sx=Math.sin(ax);
       const floatY=Math.sin(time*.65)*height*.008;
       const project=p=>{
@@ -62,7 +82,7 @@
         const {p,z}=item;
         const depth=Math.max(0,Math.min(1,(z+.95)/1.9));
         const front=z>0?1:.12;
-        const alpha=Math.min(.97,(.25+depth*.65)*p.brightness*(.12+p.fold*.88)*front*(1+energy*(.2+pulse*.18)));
+        const alpha=Math.min(.97,(.25+depth*.65)*p.brightness*(.025+Math.pow(p.fold,1.35)*.975)*front*(1+energy*(.2+pulse*.18)));
         const bright=depth>.62;
         ctx.fillStyle=bright?`rgba(204,197,255,${alpha})`:`rgba(124,112,215,${alpha})`;
         const size=p.size*(.8+depth*.45);
