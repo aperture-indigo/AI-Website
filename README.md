@@ -12,6 +12,8 @@ npm start
 
 Visit **http://localhost:3000**. Keep the terminal running; `Ctrl+C` stops the server. Use `PORT=3010 npm start` for a different port.
 
+The server listens on `127.0.0.1` for local development. On Azure App Service, the `WEBSITE_SITE_NAME` environment variable makes it listen on `0.0.0.0` and use Azure's `PORT`. `HOST` overrides the detected address when needed.
+
 For access from another machine through Tailscale:
 
 ```sh
